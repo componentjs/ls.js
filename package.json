@@ -11,9 +11,6 @@
   "license": "MIT",
   "repository": "component/ls.js",
   "dependencies": {
-    "archy": "~0.0.2",
-    "commander": "^2.0.0",
-    "component-resolver": "*",
-    "component-consoler": "^1.0.0"
+    "archy": "~0.0.2"
   }
 }
