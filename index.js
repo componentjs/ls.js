@@ -5,9 +5,18 @@
 
 var archy = require('archy');
 
-module.exports = function (tree, max) {
+/**
+ * List all components from a `tree` with a specified `depth`.
+ *
+ * @param {Object} tree
+ * @param {Number} max
+ */
+
+module.exports = function (tree, depth) {
+  var curr = 0;
+
   console.log();
-  console.log(indent(archy(traverse(tree, 0))));
+  console.log(indent(archy(traverse(tree))));
 
   /**
    * Return the dependency tree of the given config `file`.
@@ -17,9 +26,7 @@ module.exports = function (tree, max) {
    * @return {Object}
    */
 
-  function traverse(branch, depth) {
-    depth = depth || 0;
-
+  function traverse(branch) {
     var color = !branch.parent
       ? '\033[34m'
       : branch.type === 'local'
@@ -32,7 +39,7 @@ module.exports = function (tree, max) {
       nodes: []
     };
 
-    if (++depth > max) return node;
+    if (depth && ++curr > depth) return node;
 
     Object.keys(branch.dependencies).forEach(function (name) {
       node.nodes.push(traverse(branch.dependencies[name]));
